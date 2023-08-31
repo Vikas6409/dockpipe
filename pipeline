@@ -3,23 +3,38 @@ pipeline {
     stages {
         stage('Pull') { 
             steps {
-                git branch: 'master', url: 'https://github.com/rajatpzade/studentapp.ui.git'
+                git branch: 'master', url: 'https://github.com/Vikas6409/dockpipe.git'
             }
         }
-        stage('Build') { 
+       
+        stage('Build Docker Image') {
             steps {
-              sh '/opt/apache-maven/bin/mvn clean package'
+                script {
+                    def dockerImage = docker.build(
+                        context: '.',
+                        dockerfile: '/var/lib/jenkins/job/Dockerfile',
+                        tags: "testapp:${env.BUILD_ID}"
+                    )
+                }
             }
         }
+
         stage('Test') { 
             steps {
                 echo 'Test successfully'
             }
         }
-        stage('Deploy') { 
+
+        stage('Deploy on Same Instance') {
             steps {
-                echo 'yahoo  Deploy successfully'
+                script {
+                    sh "docker stop testapp || true"  // Stop existing container if exists
+                    sh "docker rm testapp || true"    // Remove existing container if exists
+
+                    sh "docker run -d -p 8080:80 --testapp testapp:${env.BUILD_ID}"
+                }
             }
         }
+        }
     }
-}
+
