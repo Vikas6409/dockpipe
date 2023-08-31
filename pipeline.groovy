@@ -12,7 +12,7 @@ pipeline {
            script {
              def dockerImage = docker.build(
                     context: '.',
-                    dockerfile: 'path/to/Dockerfile',
+                    dockerfile: '/Docker/Dockerfile',
                     additionalBuildArgs: '--build-arg KEY=VALUE',
                     tags: "repository_name:tag"
                 )
