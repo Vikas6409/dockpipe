@@ -8,32 +8,32 @@ pipeline {
         }
        
         stage('Build Docker Image') {
-            steps {
-                script {
-                    def dockerImage = docker.build(
-                        context: '.',
-                        dockerfile: '/var/lib/jenkins/workspace/Docker/Dockerfile',
-                        tags: "testapp:${env.BUILD_ID}"
-                    )
-                }
-            }
-        }
-
-        stage('Test') { 
-            steps {
+         steps {
+           script {
+              def dockerImage = docker.build(
+                  context: '.',
+                  dockerfile: 'Docker/Dockerfile', // Relative path to the Dockerfile
+                  tags: "testapp:${env.BUILD_ID}"
+              )
+           }
+       }
+     }
+   
+    stage('Test') { 
+        steps {
                 echo 'Test successfully'
             }
         }
 
-        stage('Deploy on Same Instance') {
-            steps {
-                script {
-                    sh "docker stop testapp || true"  // Stop existing container if exists
-                    sh "docker rm testapp || true"    // Remove existing container if exists
+    stage('Deploy on Same Instance') {
+        steps {
+            script {
+                    sh "docker stop testapp || true"
+                    sh "docker rm testapp || true"
 
-                    sh "docker run -d -p 8080:80 --testapp testapp:${env.BUILD_ID}"
+                    sh "docker run -d -p 8080:80 --name testapp testapp:${env.BUILD_ID}" // Use --name to specify container name
+                    }
                 }
             }
-        }
-    }
+      }
 }
