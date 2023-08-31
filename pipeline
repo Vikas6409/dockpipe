@@ -1,4 +1,4 @@
-pipeline {
+/pipeline {
     agent any 
     stages {
         stage('Pull') { 
@@ -12,7 +12,7 @@ pipeline {
                 script {
                     def dockerImage = docker.build(
                         context: '.',
-                        dockerfile: '/var/lib/jenkins/job/Dockerfile',
+                        dockerfile: '/var/lib/jenkins/job/dex/Dockerfile',
                         tags: "testapp:${env.BUILD_ID}"
                     )
                 }
