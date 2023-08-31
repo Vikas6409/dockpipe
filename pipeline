@@ -3,7 +3,7 @@
     stages {
         stage('Pull') { 
             steps {
-                git branch: 'master', url: 'https://github.com/Vikas6409/dockpipe.git'
+                git branch: 'main', url: 'https://github.com/Vikas6409/dockpipe.git'
             }
         }
        
