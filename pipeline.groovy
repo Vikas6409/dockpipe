@@ -10,11 +10,13 @@ pipeline {
         stage('Build Docker Image') {
          steps {
            script {
-              def dockerImage = docker.build(
-                  context: '.',
-                  dockerfile: 'Docker/Dockerfile', // Relative path to the Dockerfile
-                  tags: "testapp:${env.BUILD_ID}"
-              )
+             def dockerImage = docker.build(
+                    context: '.',
+                    dockerfile: 'path/to/Dockerfile',
+                    additionalBuildArgs: '--build-arg KEY=VALUE',
+                    tags: "repository_name:tag"
+                )
+
            }
        }
      }
