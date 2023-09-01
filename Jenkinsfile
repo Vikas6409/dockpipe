@@ -5,9 +5,8 @@ pipeline {
             steps {
                 git branch: 'main', url: 'https://github.com/Vikas6409/dockpipe.git'
                 script {
-                    docker build -t my-node-app .
-
-                    )
+                    // Use the sh step to run shell commands
+                    sh 'docker build -t my-node-app .'
                 }
             }
         }
