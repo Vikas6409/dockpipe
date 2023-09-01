@@ -12,4 +12,4 @@ RUN wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.93/bin/apache-tomcat-8.5.
     mv /opt/apache-tomcat-8.5.93 $CATALINA_HOME
 RUN chmod +x $CATALINA_HOME/bin/catalina.sh
 EXPOSE 8080
-CMD ["-T", "/opt/tomcat/bin/catalina.sh", "run"]
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
