@@ -6,10 +6,10 @@ RUN yum -y update && \
     yum -y install java-1.8.0-openjdk-devel wget && \
     yum clean all
 RUN yum -y install unzip
-RUN wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.91/bin/apache-tomcat-8.5.91.zip && \
-    unzip apache-tomcat-8.5.91.zip -d /opt && \
-    rm apache-tomcat-8.5.91.zip && \
-    mv /opt/apache-tomcat-8.5.91 $CATALINA_HOME
+RUN wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.91/bin/apache-tomcat-8.5.93.zip && \
+    unzip apache-tomcat-8.5.93.zip -d /opt && \
+    rm apache-tomcat-8.5.93.zip && \
+    mv /opt/apache-tomcat-8.5.93 $CATALINA_HOME
 RUN chmod +x $CATALINA_HOME/bin/catalina.sh
 EXPOSE 8080
 CMD ["/opt/tomcat/bin/catalina.sh", "run"]
