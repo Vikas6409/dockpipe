@@ -12,8 +12,8 @@ pipeline {
         }
         stage('Run Container from Image') {
             steps {
-                // Run a container from the Docker image
-                sh 'docker run -d -p 8000:3010 testapp1:latest'
+                // Run a container from the Docker image and assign a name to it
+                sh 'docker run -d -p 8000:8080 --name my-test-container testapp1:latest'
             }
         }
     }
