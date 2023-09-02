@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    stages {
+        stage('Remove Container by Name') {
+            steps {
+                // Stop and remove the container by name
+                sh 'docker stop my-test-container'
+                sh 'docker rm my-test-container'
+            }
+        }
+        stage('Remove Image by Name and Tag') {
+            steps {
+                // Remove the Docker image by name and tag
+                sh 'docker rmi testapp1:latest'
+            }
+        }
+    }
+}
