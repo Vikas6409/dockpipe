@@ -16,18 +16,5 @@ pipeline {
                 sh 'docker run -d -p 8000:3010 testapp1:latest'
             }
         }
-        stage('Remove Container') {
-            steps {
-                // Stop and remove the container by name (testapp1-container)
-                sh 'docker stop testapp1-container'
-                sh 'docker rm testapp1-container'
-            }
-        }
-        stage('Remove Image') {
-            steps {
-                // Remove the Docker image by name and tag
-                sh 'docker rmi testapp1:latest'
-            }
-        }
     }
 }
