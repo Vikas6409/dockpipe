@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build Docker Image from Dockerfile') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Vikas6409/dockpipe.git'
+                script {
+                    // Build the Docker image with a tag
+                    sh 'docker build -t testapp1:latest .'
+                }
+            }
+        }
+        stage('Run Container from Image') {
+            steps {
+                // Run a container from the Docker image and assign a name to it
+                sh 'docker run -d -p 8000:3000 --name my-test-container testapp1:latest'
+            }
+        }
+        stage('Remove Container by Name') {
+            steps {
+                // Stop and remove the container by name
+                sh 'docker stop my-test-container'
+                sh 'docker rm my-test-container'
+            }
+        }
+        stage('Remove Image by Name and Tag') {
+            steps {
+                // Remove the Docker image by name and tag
+                sh 'docker rmi testapp1:latest'
+            }
+        }
+    }
+}
