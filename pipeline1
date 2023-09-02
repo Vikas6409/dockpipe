@@ -13,7 +13,7 @@ pipeline {
         stage('Run Container from Image') {
             steps {
                 // Run a container from the Docker image
-                sh 'docker run -d -p 8080:3000 testapp1:latest'
+                sh 'docker run -d -p 8000:3010 testapp1:latest'
             }
         }
         stage('Remove Container') {
