@@ -5,16 +5,28 @@ pipeline {
             steps {
                 git branch: 'main', url: 'https://github.com/Vikas6409/dockpipe.git'
                 script {
-                    // Build the Docker image
-                    sh 'docker build -t testapp1 .'
-                  
+                    // Build the Docker image with a tag
+                    sh 'docker build -t testapp1:latest .'
                 }
             }
         }
         stage('Run Container from Image') {
             steps {
                 // Run a container from the Docker image
-                sh 'docker run -d -p 8080:3000 testapp1 '
+                sh 'docker run -d -p 8080:3000 testapp1:latest'
+            }
+        }
+        stage('Remove Container') {
+            steps {
+                // Stop and remove the container by name (testapp1-container)
+                sh 'docker stop testapp1-container'
+                sh 'docker rm testapp1-container'
+            }
+        }
+        stage('Remove Image') {
+            steps {
+                // Remove the Docker image by name and tag
+                sh 'docker rmi testapp1:latest'
             }
         }
     }
