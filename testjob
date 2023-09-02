@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    stages {
+      stage('Test') { 
+        steps {
+                echo 'Test successfully'
+            }
+       }
+  stage('output') {
+            steps {
+                script {
+                    // Define the IP address and port
+                    def ipAddress = '13.231.244.116' // Replace with the actual IP address
+                    def port = '8000'           // Replace with the actual port number
+
+                    // Use curl to make an HTTP request
+                    def response = sh(script: "curl http://${ipAddress}:${port}", returnStatus: true)
+
+                    if (response == 0) {
+                        echo "HTTP request was successful."
+                    } else {
+                        error "HTTP request failed with status code ${response}"
+                    }
+                }
+            }
+        }
+    }
+}
