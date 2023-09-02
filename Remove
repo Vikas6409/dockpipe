@@ -13,7 +13,7 @@ pipeline {
         stage('Run Container from Image') {
             steps {
                 // Run a container from the Docker image and assign a name to it
-                sh 'docker run -d -p 8000:3000 --name my-test-container testapp1:latest'
+                sh 'docker run -d -p 8082:8080 --name my-test-container testapp1:latest'
             }
         }
         stage('Remove Container by Name') {
